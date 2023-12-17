@@ -14,5 +14,5 @@ def main():
         player.computer_move(symbol.O)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

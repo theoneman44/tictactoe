@@ -1,3 +1,4 @@
+import random
 from enums import TicTacToeSymbol
 
 
@@ -19,30 +20,11 @@ class Board:
         )
 
 
-class Player:
-    def __init__(self, board: Board, symbol: TicTacToeSymbol) -> None:
-        self.current_player = symbol
-        self.board = board
-
-    # переход хода
-    def switching_players(self):
-        self.current_player = "O" if self.current_player == "X" else "X"
-
-    # логика ходов компьютера - не доделана
-    def computer_move(self, symbol: TicTacToeSymbol) -> None:
-        pass
-        # for i in range (len(self.board)):
-        #     if symbol == self.board[i]:
-        #         self.board.pop(i)
-        # possible_moves = self.board
-        # move = 0
-
-
 class Gameplay:
-    def __init__(self, board: Board, player: Player) -> None:
+    def __init__(self, board: Board, symbol: TicTacToeSymbol) -> None:
         self.board = board
         self.quit = False
-        self.player = player
+        self.current_player = symbol
 
     # проверка на победу или ничью
     def get_winner(self, symbol: TicTacToeSymbol) -> None:
@@ -62,11 +44,17 @@ class Gameplay:
             print(f"Стоп игра! Выиграли {symbol}.")
             self.board.print_board()
             return None
-        if winner is False and " " not in b:
+        elif winner is False and " " not in b:
             self.quit = True
             print("Стоп игра! Ничья...")
             self.board.print_board()
             return None
+
+    # переход хода
+    def switching_players(self):
+        self.current_player = "O" if self.current_player == "X" else "X"
+        if self.current_player == "O":
+            self.computer_move(self.current_player)
 
     # сообщение для игрока
     def show_input_message(self) -> str:
@@ -85,8 +73,36 @@ class Gameplay:
             print("Ячейка уже занята, выберите другую: ")
             return None
         else:
-            self.board[input_msg] = self.player.current_player
-            self.get_winner(self.player.current_player)
-            self.player.switching_players()
+            self.board[input_msg] = self.current_player
+            self.get_winner(self.current_player)
+            self.switching_players()
 
             return None
+
+    # логика ходов компьютера
+    def computer_move(self, symbol: TicTacToeSymbol) -> None:
+        possible_moves = []
+
+        for i in range(9):
+            if self.board[i] == " ":
+                possible_moves.append(i + 1)
+        if len(possible_moves) > 1 and self.quit is False:
+            if 5 in possible_moves:
+                move = 5
+
+            corners_open = []
+            for i in possible_moves:
+                if i in [1, 3, 7, 9]:
+                    corners_open.append(i)
+                    move = random.choice(corners_open)
+
+            edges_open = []
+            for i in possible_moves:
+                if i in [2, 4, 6, 8]:
+                    edges_open.append(i)
+                    move = random.choice(edges_open)
+            self.board[move - 1] = symbol
+            self.get_winner(self.current_player)
+            self.switching_players()
+            print(move)
+        return None

@@ -1,17 +1,16 @@
 from enums import TicTacToeSymbol
-from gameplay import Board, Gameplay, Player
+from gameplay import Board, Gameplay
 
 
 def main():
     board = Board()
     symbol = TicTacToeSymbol
-    player = Player(board, symbol.X.value)
-    gameplay = Gameplay(board, player)
+    gameplay = Gameplay(board, symbol.X.value)
     while gameplay.quit is False:
         board.print_board()
-        input_msg = input(gameplay.show_input_message())
-        gameplay.get_input_msg(input_msg)
-        player.computer_move(symbol.O)
+        if gameplay.current_player == symbol.X.value:
+            input_msg = input(gameplay.show_input_message())
+            gameplay.get_input_msg(input_msg)
 
 
 if __name__ == "__main__":

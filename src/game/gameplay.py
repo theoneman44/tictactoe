@@ -5,18 +5,10 @@ from enums import TicTacToeSymbol
 class Board:
     def __init__(self) -> None:
         self.symbol = TicTacToeSymbol
-        self.empty_cell = self.symbol.empty.value
-        self.board = [
-            self.empty_cell,
-            self.empty_cell,
-            self.empty_cell,
-            self.empty_cell,
-            self.empty_cell,
-            self.empty_cell,
-            self.empty_cell,
-            self.empty_cell,
-            self.empty_cell,
-        ]
+        self.empty_cell = self.symbol.empty
+        self.board = []
+        for i in range(9):
+            self.board.append(self.empty_cell)
 
     def __getitem__(self, index: int) -> str:
         return self.board[index]
@@ -32,35 +24,35 @@ class Board:
 
     def possible_moves(self) -> list[int]:
         possible_moves = []
-        for i in range(len(self.board)):
-            if self.board[i] == self.empty_cell:
-                possible_moves.append(i + 1)
+        for count, value in enumerate(self.board):
+            if value == self.empty_cell:
+                possible_moves.append(count + 1)
         return possible_moves
 
 
 class Gameplay:
-    def __init__(self, board: Board, symbol: TicTacToeSymbol) -> None:
+    def __init__(self, board: Board, current_player: TicTacToeSymbol) -> None:
         self.board = board
         self.quit = False
-        self.current_player = symbol
-        self.symbol_O = self.board.symbol.O.value
-        self.symbol_X = self.board.symbol.X.value
+        self.current_player = current_player
+        self.symbol_O = TicTacToeSymbol.O
+        self.symbol_X = TicTacToeSymbol.X
 
-    def get_winner(self, symbol: TicTacToeSymbol) -> None:
+    def get_winner(self, current_player: TicTacToeSymbol) -> None:
         b = self.board
         winner = (
-            (b[0] == b[1] == b[2] == symbol)
-            or (b[3] == b[4] == b[5] == symbol)
-            or (b[6] == b[7] == b[8] == symbol)
-            or (b[0] == b[3] == b[6] == symbol)
-            or (b[1] == b[4] == b[7] == symbol)
-            or (b[2] == b[5] == b[8] == symbol)
-            or (b[0] == b[4] == b[8] == symbol)
-            or (b[2] == b[4] == b[6] == symbol)
+            (b[0] == b[1] == b[2] == current_player)
+            or (b[3] == b[4] == b[5] == current_player)
+            or (b[6] == b[7] == b[8] == current_player)
+            or (b[0] == b[3] == b[6] == current_player)
+            or (b[1] == b[4] == b[7] == current_player)
+            or (b[2] == b[5] == b[8] == current_player)
+            or (b[0] == b[4] == b[8] == current_player)
+            or (b[2] == b[4] == b[6] == current_player)
         )
         if winner is True:
             self.quit = True
-            print(f"Стоп игра! Выиграли {symbol}.")
+            print(f"Стоп игра! Выиграли {current_player}.")
         elif self.board.empty_cell not in b:
             self.quit = True
             print("Стоп игра! Ничья...")

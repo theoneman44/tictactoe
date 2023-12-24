@@ -53,9 +53,11 @@ class Gameplay:
         if winner is True:
             self.quit = True
             print(f"Стоп игра! Выиграли {current_player}.")
+            self.board.print_board()
         elif self.board.empty_cell not in b:
             self.quit = True
             print("Стоп игра! Ничья...")
+            self.board.print_board()
         return None
 
     def switching_players(self) -> None:
@@ -71,24 +73,21 @@ class Gameplay:
             return None
         if input_msg not in "123456789" or input_msg == "":
             return self.show_input_message()
-        input_msg = int(input_msg) - 1
-        if self.board[input_msg] != self.board.empty_cell:
+        elif self.board[int(input_msg) - 1] != self.board.empty_cell:
             print("Ячейка уже занята, выберите другую: ")
             return None
         else:
-            self.board[input_msg] = self.current_player
+            self.board[int(input_msg) - 1] = self.current_player
             self.get_winner(self.current_player)
             self.switching_players()
-
             return None
 
     def computer_move(self, symbol: TicTacToeSymbol) -> None:
         possible_moves = self.board.possible_moves()
 
-        if len(possible_moves) > 1 and self.quit is False:
+        if len(possible_moves) > 1:
             move = random.choice(possible_moves)
             self.board[move - 1] = symbol
-            self.get_winner(self.current_player)
-            self.switching_players()
             print(f"Ход компьютера: {move}")
+            self.board.print_board()
         return None

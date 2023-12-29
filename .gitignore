@@ -4,8 +4,6 @@
 __pycache__/
 env/
 .vscode/
-setup.cfg
 .mypy_cache/
 .pytest_cache/
 .coverage
-todo.txt

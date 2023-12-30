@@ -14,7 +14,8 @@ class Board:
         return self.board[index]
 
     def __setitem__(self, index: int, symbol: TicTacToeSymbol) -> None:
-        self.board[index] = symbol
+        if isinstance(index, int):
+            self.board[index] = symbol
 
     def print_board(self) -> None:
         b = self.board
@@ -63,24 +64,18 @@ class Gameplay:
     def switching_players(self) -> None:
         self.current_player = self.symbol_O if self.current_player == self.symbol_X else self.symbol_X
 
-    def show_input_message(self) -> str:
-        return 'Введите номер от 1 до 9 для выбора ячейки или q для выхода: '
-
-    def handle_input_msg(self, input_msg: str) -> str | None:
+    def handle_input_msg(self) -> int | None:
+        input_msg = input('Введите номер от 1 до 9 для выбора ячейки или q для выхода: ')
         if input_msg.lower() == 'q':
             self.quit = True
             print('Игра прервана')
             return None
         if input_msg not in '123456789' or input_msg == '':
-            return self.show_input_message()
+            return None
         elif self.board[int(input_msg) - 1] != self.board.empty_cell:
-            print('Ячейка уже занята, выберите другую: ')
+            print('Ячейка уже занята, выберите другую.')
             return None
-        else:
-            self.board[int(input_msg) - 1] = self.current_player
-            self.get_winner(self.current_player)
-            self.switching_players()
-            return None
+        return int(input_msg) - 1
 
     def computer_move(self, symbol: TicTacToeSymbol) -> None:
         possible_moves = self.board.possible_moves()
@@ -89,7 +84,4 @@ class Gameplay:
             move = random.choice(possible_moves)
             self.board[move - 1] = symbol
             print(f'Ход компьютера: {move}')
-            self.board.print_board()
-            self.get_winner(self.current_player)
-            self.switching_players()
         return None

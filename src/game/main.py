@@ -2,7 +2,7 @@ from enums import TicTacToeSymbol
 from gameplay import Board, Gameplay
 
 
-def main():
+def main() -> None:
     board = Board()
     symbol = TicTacToeSymbol
     gameplay = Gameplay(board, symbol.X)

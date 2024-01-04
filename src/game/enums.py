@@ -2,6 +2,6 @@ import enum
 
 
 class TicTacToeSymbol(enum.StrEnum):
-    X = "X"
-    O = "O"
-    empty = " "
+    X = 'X'
+    O = 'O'
+    empty = ' '

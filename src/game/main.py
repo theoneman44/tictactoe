@@ -1,5 +1,5 @@
-from enums import TicTacToeSymbol
-from gameplay import Board, Gameplay
+from src.game.enums import TicTacToeSymbol
+from src.game.gameplay import Board, Gameplay
 
 
 def main() -> None:
@@ -9,7 +9,8 @@ def main() -> None:
     board.print_board()
     while not gameplay.quit:
         if gameplay.current_player == symbol.X:
-            human_move = gameplay.handle_input_msg()
+            input_msg = input('Введите номер от 1 до 9 для выбора ячейки или q для выхода: ')
+            human_move = gameplay.handle_input_msg(input_msg)
             if type(human_move) is int:
                 board[human_move] = symbol.X
                 gameplay.get_winner(gameplay.current_player)

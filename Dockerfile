@@ -8,7 +8,7 @@ RUN python -m pip install --upgrade pip
 
 COPY requirements.txt /app/
 
-RUN python -m pip install requirements.txt
+RUN python -m pip install -r requirements.txt
 
 COPY . /app
 

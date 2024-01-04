@@ -1,5 +1,5 @@
 import random
-from enums import TicTacToeSymbol
+from src.game.enums import TicTacToeSymbol
 
 
 class Board:
@@ -64,17 +64,18 @@ class Gameplay:
     def switching_players(self) -> None:
         self.current_player = self.symbol_O if self.current_player == self.symbol_X else self.symbol_X
 
-    def handle_input_msg(self) -> int | None:
-        input_msg = input('Введите номер от 1 до 9 для выбора ячейки или q для выхода: ')
+    def handle_input_msg(self, input_msg: str) -> str | int | None:
         if input_msg.lower() == 'q':
             self.quit = True
-            print('Игра прервана')
-            return None
+            alert_message = 'Игра прервана'
+            print(alert_message)
+            return alert_message
         if input_msg not in '123456789' or input_msg == '':
             return None
         elif self.board[int(input_msg) - 1] != self.board.empty_cell:
-            print('Ячейка уже занята, выберите другую.')
-            return None
+            alert_message = 'Ячейка уже занята, выберите другую.'
+            print(alert_message)
+            return alert_message
         return int(input_msg) - 1
 
     def computer_move(self, symbol: TicTacToeSymbol) -> None:

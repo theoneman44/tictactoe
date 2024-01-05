@@ -1,5 +1,5 @@
-from src.game.enums import TicTacToeSymbol
-from src.game.gameplay import Board, Gameplay
+from .enums import TicTacToeSymbol
+from .gameplay import Board, Gameplay
 
 
 def main() -> None:

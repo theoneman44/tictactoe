@@ -1,5 +1,5 @@
 import random
-from src.game.enums import TicTacToeSymbol
+from .enums import TicTacToeSymbol
 
 
 class Board:
@@ -55,7 +55,7 @@ class Gameplay:
             self.quit = True
             print(f'Стоп игра! Выиграли {current_player}.')
             self.board.print_board()
-        elif self.board.empty_cell not in b:
+        elif self.board.empty_cell not in b.board:
             self.quit = True
             print('Стоп игра! Ничья...')
             self.board.print_board()

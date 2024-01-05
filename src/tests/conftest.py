@@ -1,6 +1,6 @@
 import pytest
-from src.game.enums import TicTacToeSymbol
-from src.game.gameplay import Board
+from ..game.enums import TicTacToeSymbol
+from ..game.gameplay import Board
 
 
 @pytest.fixture

@@ -1,5 +1,5 @@
 import pytest
-from src.game.gameplay import Gameplay
+from ..game.gameplay import Gameplay
 
 
 def test__possible_moves(new_board, possible_moves, current_player):

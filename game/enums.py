@@ -1,7 +1,7 @@
-import enum
+from enum import StrEnum
 
 
-class TicTacToeSymbol(enum.StrEnum):
+class TicTacToeSymbol(StrEnum):
     X = 'X'
     O = 'O'
     empty = ' '

@@ -37,8 +37,3 @@ def draw_board(symbol):
 def possible_moves():
     possible_moves = [2, 3, 4, 6, 7, 8]
     return possible_moves
-
-
-# x 0 x
-# 0 x 0
-# 0 x 0

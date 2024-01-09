@@ -1,10 +1,8 @@
 *.mp4
-*.txt
 *.csv
 __pycache__/
 env/
 .vscode/
-setup.cfg
 .mypy_cache/
 .pytest_cache/
 .coverage
